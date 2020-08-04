@@ -19,6 +19,6 @@ class EnumSerializer<T: Enum<T>>(private val clasz: Class<T>) : DataSerializer<T
     }
 
     override fun read(tag: CompoundTag, key: String): T {
-        return java.lang.Enum.valueOf(clasz, key) as T
+        return java.lang.Enum.valueOf(clasz, tag.getString(key)) as T
     }
 }
