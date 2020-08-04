@@ -53,6 +53,9 @@ If you want to use a nullable serializer, so it may be a good idea to use ``pers
 
 For more examples check the [example mod](https://github.com/NathanPB/KtDataTagLib/tree/master/src/main/kotlin/dev/nathanpb/example), its really idiot but it helps
 
+## Performance
+The performance of this library wasn't tested **yet** and it **may** have problems, I really don't know yet.
+
 ## License
 
 Copyright 2020 Nathan P. Bombana
