@@ -46,9 +46,11 @@ println(data.counter) // > 10
 // Oh god my counter really incremented how is that possible
 ```
 
-## Recomendations
-Null safety can turn into a mass if you are not careful with nullable/non-nullable types.
+## Recommendations
+Null safety can turn into a mess if you are not careful with nullable/non-nullable types.
+
 If you wish to use ``persisted`` instead of ``persistedDefault`` make sure to use a nullable serializer too.
+
 If you want to use a nullable serializer, so it may be a good idea to use ``persisted`` instead of ``persistedDefault`` or else you will not get any null values
 
 For more examples check the [example mod](https://github.com/NathanPB/KtDataTagLib/tree/master/src/main/kotlin/dev/nathanpb/example), its really idiot but it helps
