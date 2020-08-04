@@ -36,7 +36,7 @@ class DummyData(tag: CompoundTag) : MutableCompoundData(tag) {
 val tag: CompoundTag = stack.orCreateTag // A CompoundTag you got from somewhere, does not matter where it came from
 val data = DummyData(tag)
 
-data.counter += 10 // I'll increment this counter because I'm such a random people
+data.counter += 10 // I'll increment this counter because I'm such a random person
 println(data.counter) // > 10
 
 // Oh god my counter really incremented how is that possible
