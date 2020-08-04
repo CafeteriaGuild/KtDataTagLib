@@ -22,14 +22,20 @@ open class MutableCompoundData(val tag: CompoundTag) {
     protected fun <T>persistentDefaulted(defaultValue: T, serializer: DataSerializer<T>, key: String? = null) : ReadWriteProperty<MutableCompoundData, T> {
         return object: ReadWriteProperty<MutableCompoundData, T> {
 
+            init {
+                if (serializer.isNullable()) {
+                    LOGGER.warning("Detected the use of nullable serializer in persistentDefaulted accessor. Using non-defaulted accessor maybe will make more sense")
+                }
+            }
+
             override fun getValue(thisRef: MutableCompoundData, property: KProperty<*>): T {
                 return if (serializer.has(tag, key ?: property.name)) {
-                    serializer.read(tag, key ?: property.name)
+                    serializer.read(tag, key ?: property.name) ?: defaultValue
                 } else defaultValue
             }
 
             override fun setValue(thisRef: MutableCompoundData, property: KProperty<*>, value: T) {
-                serializer.write(tag, key ?: property.name, value)
+                serializer.write(tag, key ?: property.name, value ?: defaultValue)
             }
 
         }
@@ -38,11 +44,21 @@ open class MutableCompoundData(val tag: CompoundTag) {
     protected fun <T>persistent(serializer: DataSerializer<T>, key: String? = null) : ReadWriteProperty<MutableCompoundData, T> {
         return object: ReadWriteProperty<MutableCompoundData, T> {
 
-            override fun getValue(thisRef: MutableCompoundData, property: KProperty<*>): T {
-                if (!serializer.has(tag, key ?: property.name)) {
-                    LOGGER.warning("Attempted to read a tag of key ${key ?: property.name} that is not contained in the compound from a non-defaulted accessor. Attempting to return the internal default value anyway")
+            init {
+                if (!serializer.isNullable()) {
+                    LOGGER.warning("Attempt to use non-nullable serializer in non-defaulted accessor. Its recommended to switch to nullable accessors due null-safety purposes")
                 }
-                return serializer.read(tag, key ?: property.name)
+            }
+
+            override fun getValue(thisRef: MutableCompoundData, property: KProperty<*>): T {
+                val has = serializer.has(tag, key ?: property.name)
+
+                return if (has || (!has && !serializer.isNullable())) {
+                    if (!has && !serializer.isNullable()) {
+                        LOGGER.warning("Attempted to read a tag of key \"${key ?: property.name}\" that is not contained in the compound from a non-defaulted accessor. Attempting to return the internal default value anyway")
+                    }
+                    serializer.read(tag, key ?: property.name)
+                } else null as T
             }
 
             override fun setValue(thisRef: MutableCompoundData, property: KProperty<*>, value: T) {

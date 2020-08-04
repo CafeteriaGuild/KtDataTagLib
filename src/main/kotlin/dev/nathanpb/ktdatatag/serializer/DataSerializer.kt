@@ -18,8 +18,12 @@ interface DataSerializer<T> {
     fun read(tag: CompoundTag, key: String): T
 
     fun nullable() = Nullable(this)
+    fun isNullable() = false
 
     class Nullable<T> internal constructor(private val wrapped: DataSerializer<T>) : DataSerializer<T?> {
+
+        override fun isNullable() = true
+
         override fun write(tag: CompoundTag, key: String, data: T?) {
             if (data == null) {
                 tag.remove(key)
