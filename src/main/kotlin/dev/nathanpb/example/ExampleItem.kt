@@ -29,12 +29,15 @@ class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
             val data = ExampleItemData(stack.orCreateTag)
 
             user.sendMessage(LiteralText("Before change: $data"), false)
+
             data.counterInt++
             data.counterDouble += 0.00000000002
             data.boolean = !data.boolean
             data.string = "Hey this is a new string ${data.counterInt}"
             data.uuid = UUID.randomUUID()
             data.nestedTag.putInt("randomInt", Random.nextInt())
+            data.enum = TestEnum.values().random()
+
             user.sendMessage(LiteralText("After change: $data"), false)
         }
         return super.use(world, user, hand)
