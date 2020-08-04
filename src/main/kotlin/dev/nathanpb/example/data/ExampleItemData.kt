@@ -13,6 +13,7 @@ package dev.nathanpb.example.data
 import dev.nathanpb.example.TestEnum
 import dev.nathanpb.ktdatatag.data.MutableCompoundData
 import dev.nathanpb.ktdatatag.serializer.EnumSerializer
+import dev.nathanpb.ktdatatag.serializer.IntListSerializer
 import dev.nathanpb.ktdatatag.serializer.Serializers
 import net.minecraft.nbt.CompoundTag
 import java.util.*
@@ -31,4 +32,6 @@ class ExampleItemData(tag: CompoundTag) : MutableCompoundData(tag) {
     var nestedTag by persistent(CompoundTag(), Serializers.COMPOUND_TAG)
 
     var enum by persistent(TestEnum.A, EnumSerializer(TestEnum::class.java))
+
+    var list by persistent(emptyList(), Serializers.INT_LIST)
 }

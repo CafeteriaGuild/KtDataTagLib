@@ -25,6 +25,10 @@ See the versions [in the releases page](https://github.com/NathanPB/KtDataTagLib
 ```kotlin
 class DummyData(tag: CompoundTag) : MutableCompoundData(tag) {
     val counter by persistent(0, Serializers.INT)
+    val idiotIds by persistent(emptyList(), Serializers.INT_LIST) // Works with IMMUTABLE lists too
+    val idiotEnum by persistent(TestEnum.A, EnumSerializer(TestEnum::class.java)) // Enums require you to manually instantiate the serializer, not big deal
+    val godsUUID by persistent(UUID.fromString("f8605001d8e14a379765ffc0675f3324"), Serializers.UUID) // UUIDs are valid too
+    val compound by persistent(CompoundTag(), Serializers.COMPOUND_TAG) // And so compound tags are
 }
 ```
 
@@ -37,6 +41,8 @@ println(data.counter) // > 10
 
 // Oh god my counter really incremented how is that possible
 ```
+
+For more examples check the [example mod](https://github.com/NathanPB/KtDataTagLib/tree/master/src/main/kotlin/dev/nathanpb/example), its really idiot but it helps
 
 ## License
 

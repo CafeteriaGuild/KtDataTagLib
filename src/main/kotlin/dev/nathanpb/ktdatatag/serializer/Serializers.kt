@@ -10,6 +10,7 @@
 
 package dev.nathanpb.ktdatatag.serializer
 
+@Suppress("private", "unused")
 class Serializers {
     companion object {
         val INT = IntSerializer()
@@ -22,5 +23,16 @@ class Serializers {
         val LONG = LongSerializer()
         val COMPOUND_TAG = CompoundTagSerializer()
         val UUID = UUIDSerializer()
+
+        val INT_LIST = IntListSerializer()
+        val FLOAT_LIST = FloatListSerializer()
+        val DOUBLE_LIST = DoubleListSerializer()
+        val STRING_LIST = StringListSerializer()
+        val BYTE_LIST = ByteListSerializer()
+        val BOOLEAN_LIST = BooleanListSerializer()
+        val SHORT_LIST = ShortListSerializer()
+        val LONG_LIST = LongListSerializer()
+        val COMPOUND_TAG_LIST = CompoundTagListSerializer()
+        val UUID_LIST = UUIDListSerializer()
     }
 }

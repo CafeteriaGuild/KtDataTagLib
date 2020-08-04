@@ -37,6 +37,7 @@ class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
             data.uuid = UUID.randomUUID()
             data.nestedTag.putInt("randomInt", Random.nextInt())
             data.enum = TestEnum.values().random()
+            data.list = data.list + data.list.size
 
             user.sendMessage(LiteralText("After change: $data"), false)
         }
