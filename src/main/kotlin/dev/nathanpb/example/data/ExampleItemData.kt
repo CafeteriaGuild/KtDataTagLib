@@ -13,28 +13,29 @@ package dev.nathanpb.example.data
 import dev.nathanpb.example.TestEnum
 import dev.nathanpb.ktdatatag.data.MutableCompoundData
 import dev.nathanpb.ktdatatag.serializer.EnumSerializer
-import dev.nathanpb.ktdatatag.serializer.IntListSerializer
 import dev.nathanpb.ktdatatag.serializer.Serializers
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Identifier
 import java.util.*
 
 class ExampleItemData(tag: CompoundTag) : MutableCompoundData(tag) {
-    var counterInt by persistent(10, Serializers.INT)
+    var counterInt by persistentDefaulted(10, Serializers.INT)
 
-    var counterDouble by persistent(0.0, Serializers.DOUBLE)
+    var counterDouble by persistentDefaulted(0.0, Serializers.DOUBLE)
 
-    var string by persistent("that dummy thing", Serializers.STRING)
+    var string by persistentDefaulted("that dummy thing", Serializers.STRING)
 
-    var uuid by persistent(UUID.randomUUID(), Serializers.UUID)
+    var uuid by persistentDefaulted(UUID.randomUUID(), Serializers.UUID)
 
-    var boolean by persistent(false, Serializers.BOOLEAN)
+    var boolean by persistentDefaulted(false, Serializers.BOOLEAN)
 
-    var nestedTag by persistent(CompoundTag(), Serializers.COMPOUND_TAG)
+    var nestedTag by persistentDefaulted(CompoundTag(), Serializers.COMPOUND_TAG)
 
-    var enum by persistent(TestEnum.A, EnumSerializer(TestEnum::class.java))
+    var enum by persistentDefaulted(TestEnum.A, EnumSerializer(TestEnum::class.java))
 
-    var list by persistent(emptyList(), Serializers.INT_LIST)
+    var list by persistentDefaulted(emptyList(), Serializers.INT_LIST)
 
-    var id by persistent(Identifier("weirdomod:weirdoitem"), Serializers.IDENTIFIER)
+    var id by persistentDefaulted(Identifier("weirdomod:weirdoitem"), Serializers.IDENTIFIER)
+
+    var nullable by persistent(Serializers.INT.nullable())
 }

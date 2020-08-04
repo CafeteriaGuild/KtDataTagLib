@@ -16,4 +16,21 @@ interface DataSerializer<T> {
     fun has(tag: CompoundTag, key: String) = tag.contains(key)
     fun write(tag: CompoundTag, key: String, data: T)
     fun read(tag: CompoundTag, key: String): T
+
+    fun nullable() = Nullable(this)
+
+    class Nullable<T> internal constructor(private val wrapped: DataSerializer<T>) : DataSerializer<T?> {
+        override fun write(tag: CompoundTag, key: String, data: T?) {
+            if (data == null) {
+                tag.remove(key)
+            } else wrapped.write(tag, key, data)
+        }
+
+        override fun read(tag: CompoundTag, key: String): T? {
+            return if (has(tag, key)) {
+                wrapped.read(tag, key)
+            } else null
+        }
+
+    }
 }

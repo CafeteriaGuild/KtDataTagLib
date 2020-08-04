@@ -41,6 +41,7 @@ class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
             data.enum = TestEnum.values().random()
             data.list = data.list + data.list.size
             data.id = Registry.ITEM.ids.random()
+            data.nullable = null
 
             user.sendMessage(LiteralText("After change: $data"), false)
         }

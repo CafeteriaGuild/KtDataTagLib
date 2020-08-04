@@ -24,12 +24,13 @@ See the versions [in the releases page](https://github.com/NathanPB/KtDataTagLib
 
 ```kotlin
 class DummyData(tag: CompoundTag) : MutableCompoundData(tag) {
-    val counter by persistent(0, Serializers.INT)
-    val idiotIds by persistent(emptyList(), Serializers.INT_LIST) // Works with IMMUTABLE lists too
-    val idiotEnum by persistent(TestEnum.A, EnumSerializer(TestEnum::class.java)) // Enums require you to manually instantiate the serializer, not big deal
-    val godsUUID by persistent(UUID.fromString("f8605001d8e14a379765ffc0675f3324"), Serializers.UUID) // UUIDs are valid too
-    val compound by persistent(CompoundTag(), Serializers.COMPOUND_TAG) // And so compound tags are
-    val id by persistent(Identifier("dml-refabricated", "deep_learner"), Serializers.IDENTIFIER) // And with identifiers too, how could I forget that?
+    val counter by persistentDefaulted(0, Serializers.INT)
+    val idiotIds by persistentDefaulted(emptyList(), Serializers.INT_LIST) // Works with IMMUTABLE lists too
+    val idiotEnum by persistentDefaulted(TestEnum.A, EnumSerializer(TestEnum::class.java)) // Enums require you to manually instantiate the serializer, not big deal
+    val godsUUID by persistentDefaulted(UUID.fromString("f8605001d8e14a379765ffc0675f3324"), Serializers.UUID) // UUIDs are valid too
+    val compound by persistentDefaulted(CompoundTag(), Serializers.COMPOUND_TAG) // And so compound tags are
+    val id by persistentDefaulted(Identifier("dml-refabricated", "deep_learner"), Serializers.IDENTIFIER) // And with identifiers too, how could I forget that?
+    val nullable by persistent(Serializers.INT.nullable()) // Works with nullable values too
 }
 ```
 

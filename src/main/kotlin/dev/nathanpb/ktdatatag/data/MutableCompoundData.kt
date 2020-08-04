@@ -12,18 +12,37 @@ package dev.nathanpb.ktdatatag.data
 
 import dev.nathanpb.ktdatatag.serializer.DataSerializer
 import net.minecraft.nbt.CompoundTag
+import java.util.logging.Logger
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 open class MutableCompoundData(val tag: CompoundTag) {
+    val LOGGER = Logger.getLogger("KtDataTagLib")
 
-    fun <T>persistent(defaultValue: T, serializer: DataSerializer<T>, key: String? = null) : ReadWriteProperty<MutableCompoundData, T> {
+    protected fun <T>persistentDefaulted(defaultValue: T, serializer: DataSerializer<T>, key: String? = null) : ReadWriteProperty<MutableCompoundData, T> {
         return object: ReadWriteProperty<MutableCompoundData, T> {
 
             override fun getValue(thisRef: MutableCompoundData, property: KProperty<*>): T {
                 return if (serializer.has(tag, key ?: property.name)) {
                     serializer.read(tag, key ?: property.name)
                 } else defaultValue
+            }
+
+            override fun setValue(thisRef: MutableCompoundData, property: KProperty<*>, value: T) {
+                serializer.write(tag, key ?: property.name, value)
+            }
+
+        }
+    }
+
+    protected fun <T>persistent(serializer: DataSerializer<T>, key: String? = null) : ReadWriteProperty<MutableCompoundData, T> {
+        return object: ReadWriteProperty<MutableCompoundData, T> {
+
+            override fun getValue(thisRef: MutableCompoundData, property: KProperty<*>): T {
+                if (!serializer.has(tag, key ?: property.name)) {
+                    LOGGER.warning("Attempted to read a tag of key ${key ?: property.name} that is not contained in the compound from a non-defaulted accessor. Attempting to return the internal default value anyway")
+                }
+                return serializer.read(tag, key ?: property.name)
             }
 
             override fun setValue(thisRef: MutableCompoundData, property: KProperty<*>, value: T) {
