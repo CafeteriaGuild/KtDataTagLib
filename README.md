@@ -50,6 +50,9 @@ println(data.counter) // > 10
 - Identifier
 - ItemStack
 - Enum
+- BlockPos
+- Vec3d
+- Vec3i
 - Nullable (Kotlin's ``?``) for all the types above
 - List (for all the types above)
 - Custom (You can create custom serializers as you wish, its pretty simple to implement. Just look at the existing ones)

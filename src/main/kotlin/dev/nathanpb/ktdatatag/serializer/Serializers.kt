@@ -26,6 +26,9 @@ class Serializers {
         val UUID = UUIDSerializer()
         val IDENTIFIER = IdentifierSerializer()
         val ITEM_STACK = ItemStackSerializer()
+        val BLOCKPOS = BlockPosSerializer()
+        val VEC3D = Vec3dSerializer()
+        val VEC3I = Vec3iSerializer()
 
         val INT_LIST = IntListSerializer()
         val FLOAT_LIST = FloatListSerializer()
@@ -40,5 +43,8 @@ class Serializers {
         val UUID_LIST = UUIDListSerializer()
         val IDENTIFIER_LIST = IdentifierListSerializer()
         val ITEM_STACK_LIST = ItemStackListSerializer()
+        val BLOCKPOS_LIST = BlockPosListSerializer()
+        val VEC3D_LIST = Vec3dListSerializer()
+        val VEC3I_LIST = Vec3iSerializer()
     }
 }
