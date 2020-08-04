@@ -2,6 +2,24 @@
 
 Little wrapper of the Minecraft's Tag API made to make my life easier. Maybe it will make yours too.
 
+## Installing
+
+build.gradle
+```groovy
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+```
+```groovy
+    dependencies {
+        modApi 'com.github.NathanPB:KtDataTagLib:VERSION'
+        include 'com.github.NathanPB:KtDataTagLib:VERSION'
+    }
+```
+
+See the versions [in the releases page](https://github.com/NathanPB/KtDataTagLib/releases)
+
 ## Example Usage
 
 ```kotlin
