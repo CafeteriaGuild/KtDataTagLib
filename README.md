@@ -25,11 +25,7 @@ See the versions [in the releases page](https://github.com/NathanPB/KtDataTagLib
 ```kotlin
 class DummyData(tag: CompoundTag) : MutableCompoundData(tag) {
     val counter by persistentDefaulted(0, Serializers.INT)
-    val idiotIds by persistentDefaulted(emptyList(), Serializers.INT_LIST) // Works with IMMUTABLE lists too
     val idiotEnum by persistentDefaulted(TestEnum.A, EnumSerializer(TestEnum::class.java)) // Enums require you to manually instantiate the serializer, not big deal
-    val godsUUID by persistentDefaulted(UUID.fromString("f8605001d8e14a379765ffc0675f3324"), Serializers.UUID) // UUIDs are valid too
-    val compound by persistentDefaulted(CompoundTag(), Serializers.COMPOUND_TAG) // And so compound tags are
-    val id by persistentDefaulted(Identifier("dml-refabricated", "deep_learner"), Serializers.IDENTIFIER) // And with identifiers too, how could I forget that?
     val nullable by persistent(Serializers.INT.nullable()) // Works with nullable values too
 }
 ```
@@ -45,6 +41,18 @@ println(data.counter) // > 10
 
 // Oh god my counter really incremented how is that possible
 ```
+
+## Supported Data Types
+- Java/Kotlin's primitives (Int, Float, Double, Boolean, Byte, Short, Char, Long)
+- String
+- CompoundTag
+- UUID
+- Identifier
+- ItemStack
+- Enum
+- Nullable (Kotlin's ``?``) for all the types above
+- List (for all the types above)
+- Custom (You can create custom serializers as you wish, its pretty simple to implement. Just look at the existing ones)
 
 ## Recommendations
 Null safety can turn into a mess if you are not careful with nullable/non-nullable types.

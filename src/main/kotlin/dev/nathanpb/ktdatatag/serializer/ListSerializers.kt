@@ -10,6 +10,7 @@
 
 package dev.nathanpb.ktdatatag.serializer
 
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.*
 import net.minecraft.util.Identifier
 import java.util.*
@@ -105,6 +106,13 @@ class LongListSerializer : AbstractListTagSerializer<Long, LongTag>(
     LongTag::of
 )
 
+class CharListSerializer : AbstractListTagSerializer<Char, ShortTag>(
+    ShortTag.of(0).type,
+    ShortTag::class.java,
+    { tag -> tag.short.toChar() },
+    { char -> ShortTag.of(char.toShort()) }
+)
+
 // what a (almost) useless thing
 class CompoundTagListSerializer : AbstractListTagSerializer<CompoundTag, CompoundTag>(
     CompoundTag().type,
@@ -132,4 +140,11 @@ class IdentifierListSerializer : AbstractListTagSerializer<Identifier, StringTag
     StringTag::class.java,
     { Identifier(it.asString()) },
     { StringTag.of(it.toString()) }
+)
+
+class ItemStackListSerializer : AbstractListTagSerializer<ItemStack, CompoundTag>(
+    CompoundTag().type,
+    CompoundTag::class.java,
+    { ItemStack.fromTag(it) },
+    { it.toTag(CompoundTag()) }
 )

@@ -51,3 +51,8 @@ class LongSerializer : AbstractFunctionalDataSerializer<Long>(
     CompoundTag::getLong,
     CompoundTag::putLong
 )
+
+class CharSerializer : AbstractFunctionalDataSerializer<Char>(
+    { tag, key -> tag.getShort(key).toChar() },
+    { tag, key, value -> tag.putShort(key, value.toShort()) }
+)
