@@ -29,8 +29,11 @@ class DummyData(tag: CompoundTag) : MutableCompoundData(tag) {
     val idiotEnum by persistent(TestEnum.A, EnumSerializer(TestEnum::class.java)) // Enums require you to manually instantiate the serializer, not big deal
     val godsUUID by persistent(UUID.fromString("f8605001d8e14a379765ffc0675f3324"), Serializers.UUID) // UUIDs are valid too
     val compound by persistent(CompoundTag(), Serializers.COMPOUND_TAG) // And so compound tags are
+    val id by persistent(Identifier("dml-refabricated", "deep_learner"), Serializers.IDENTIFIER) // And with identifiers too, how could I forget that?
 }
 ```
+
+It works with all the primitive data types and String too, just pick the right serializer
 
 ```kotlin
 val tag: CompoundTag = stack.orCreateTag // A CompoundTag you got from somewhere, does not matter where it came from

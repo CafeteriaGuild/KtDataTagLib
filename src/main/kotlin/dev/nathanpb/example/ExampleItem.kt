@@ -17,7 +17,9 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.text.LiteralText
 import net.minecraft.util.Hand
+import net.minecraft.util.Identifier
 import net.minecraft.util.TypedActionResult
+import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
 import java.util.*
 import kotlin.random.Random
@@ -38,6 +40,7 @@ class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
             data.nestedTag.putInt("randomInt", Random.nextInt())
             data.enum = TestEnum.values().random()
             data.list = data.list + data.list.size
+            data.id = Registry.ITEM.ids.random()
 
             user.sendMessage(LiteralText("After change: $data"), false)
         }

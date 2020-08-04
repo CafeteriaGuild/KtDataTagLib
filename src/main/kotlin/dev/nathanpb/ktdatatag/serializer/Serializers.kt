@@ -23,6 +23,7 @@ class Serializers {
         val LONG = LongSerializer()
         val COMPOUND_TAG = CompoundTagSerializer()
         val UUID = UUIDSerializer()
+        val IDENTIFIER = IdentifierSerializer()
 
         val INT_LIST = IntListSerializer()
         val FLOAT_LIST = FloatListSerializer()
@@ -34,5 +35,6 @@ class Serializers {
         val LONG_LIST = LongListSerializer()
         val COMPOUND_TAG_LIST = CompoundTagListSerializer()
         val UUID_LIST = UUIDListSerializer()
+        val IDENTIFIER_LIST = IdentifierListSerializer()
     }
 }

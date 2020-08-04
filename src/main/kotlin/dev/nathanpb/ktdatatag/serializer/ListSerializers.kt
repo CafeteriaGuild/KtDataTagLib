@@ -11,6 +11,7 @@
 package dev.nathanpb.ktdatatag.serializer
 
 import net.minecraft.nbt.*
+import net.minecraft.util.Identifier
 import java.util.*
 
 abstract class AbstractListSerializer<T>(private val type: Byte) : DataSerializer<List<T>> {
@@ -124,4 +125,11 @@ class EnumListSerializer<T: Enum<T>>(clasz: Class<T>) : AbstractListTagSerialize
     StringTag::class.java,
     { java.lang.Enum.valueOf(clasz, it.asString()) },
     { StringTag.of(it.name) }
+)
+
+class IdentifierListSerializer : AbstractListTagSerializer<Identifier, StringTag>(
+    StringTag.of("").type,
+    StringTag::class.java,
+    { Identifier(it.asString()) },
+    { StringTag.of(it.toString()) }
 )

@@ -16,6 +16,7 @@ import dev.nathanpb.ktdatatag.serializer.EnumSerializer
 import dev.nathanpb.ktdatatag.serializer.IntListSerializer
 import dev.nathanpb.ktdatatag.serializer.Serializers
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.util.Identifier
 import java.util.*
 
 class ExampleItemData(tag: CompoundTag) : MutableCompoundData(tag) {
@@ -34,4 +35,6 @@ class ExampleItemData(tag: CompoundTag) : MutableCompoundData(tag) {
     var enum by persistent(TestEnum.A, EnumSerializer(TestEnum::class.java))
 
     var list by persistent(emptyList(), Serializers.INT_LIST)
+
+    var id by persistent(Identifier("weirdomod:weirdoitem"), Serializers.IDENTIFIER)
 }
