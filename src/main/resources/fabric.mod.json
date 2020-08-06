@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "ktdatataglibtest",
+  "id": "ktdatataglib",
   "version": "${version}",
-  "name": "KtDataTagLib Testmod",
-  "description": "The testmod of KtDataTagLib",
+  "name": "KtDataTagLib",
+  "description": "Kotlin library to manage data stored in the Minecraft Data API",
   "authors": [
     "NathanPB"
   ],
@@ -13,23 +13,15 @@
     "sources": "https://github.com/NathanPB/KtDataTagLib.git"
   },
   "license": "MIT",
+  "icon": "assets/ktdatataglib/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      {
-        "adapter": "kotlin",
-        "value": "example.ExampleModKt::init"
-      }
-    ]
   },
   "mixins": [],
   "depends": {
-    "fabricloader": ">=0.8.7",
-    "fabric": "*",
-    "fabric-language-kotlin": "*",
-    "minecraft": "1.16.x"
+    "fabricloader": ">=0.8.7"
   },
-  "suggests": {
-    "flamingo": "*"
+  "custom": {
+    "modmenu:api": true
   }
 }
