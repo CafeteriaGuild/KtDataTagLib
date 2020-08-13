@@ -13,13 +13,12 @@
     "sources": "https://github.com/NathanPB/KtDataTagLib.git"
   },
   "license": "MIT",
-  "icon": "assets/ktdatataglib/icon.png",
   "environment": "*",
   "entrypoints": {
   },
   "mixins": [],
   "depends": {
-    "fabricloader": ">=0.8.7"
+    "minecraft": "1.16.x"
   },
   "custom": {
     "modmenu:api": true
