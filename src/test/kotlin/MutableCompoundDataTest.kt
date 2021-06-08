@@ -1,7 +1,7 @@
 
 import dev.nathanpb.ktdatatag.data.MutableCompoundData
 import dev.nathanpb.ktdatatag.serializer.Serializers
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -9,7 +9,7 @@ class MutableCompoundDataTest {
 
     @Test
     fun testSimple() {
-        val data = object: MutableCompoundData(CompoundTag()) {
+        val data = object: MutableCompoundData(NbtCompound()) {
             var field by persistent(Serializers.STRING)
         }
 
@@ -21,7 +21,7 @@ class MutableCompoundDataTest {
 
     @Test
     fun testSimpleNullable() {
-        val data = object: MutableCompoundData(CompoundTag()) {
+        val data = object: MutableCompoundData(NbtCompound()) {
             var field by persistent(Serializers.STRING.nullable())
         }
 
@@ -36,7 +36,7 @@ class MutableCompoundDataTest {
 
     @Test
     fun testDefaulted() {
-        val data = object: MutableCompoundData(CompoundTag()) {
+        val data = object: MutableCompoundData(NbtCompound()) {
             var field by persistentDefaulted("foobar", Serializers.STRING)
         }
 
@@ -48,7 +48,7 @@ class MutableCompoundDataTest {
 
     @Test
     fun testDefaultedNullable() {
-        val data = object: MutableCompoundData(CompoundTag()) {
+        val data = object: MutableCompoundData(NbtCompound()) {
             var field by persistentDefaulted("foobar", Serializers.STRING.nullable())
         }
 

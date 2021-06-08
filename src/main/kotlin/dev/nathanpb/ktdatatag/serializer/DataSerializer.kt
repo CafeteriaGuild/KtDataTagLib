@@ -10,12 +10,12 @@
 
 package dev.nathanpb.ktdatatag.serializer
 
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 
 interface DataSerializer<T> {
-    fun has(tag: CompoundTag, key: String) = tag.contains(key)
-    fun write(tag: CompoundTag, key: String, data: T)
-    fun read(tag: CompoundTag, key: String): T
+    fun has(tag: NbtCompound, key: String) = tag.contains(key)
+    fun write(tag: NbtCompound, key: String, data: T)
+    fun read(tag: NbtCompound, key: String): T
 
     fun nullable() = Nullable(this)
     fun isNullable() = false
@@ -24,13 +24,13 @@ interface DataSerializer<T> {
 
         override fun isNullable() = true
 
-        override fun write(tag: CompoundTag, key: String, data: T?) {
+        override fun write(tag: NbtCompound, key: String, data: T?) {
             if (data == null) {
                 tag.remove(key)
             } else wrapped.write(tag, key, data)
         }
 
-        override fun read(tag: CompoundTag, key: String): T? {
+        override fun read(tag: NbtCompound, key: String): T? {
             return if (has(tag, key)) {
                 wrapped.read(tag, key)
             } else null

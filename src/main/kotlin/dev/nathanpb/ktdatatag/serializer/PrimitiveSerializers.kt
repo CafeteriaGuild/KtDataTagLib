@@ -10,46 +10,46 @@
 
 package dev.nathanpb.ktdatatag.serializer
 
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 
 class IntSerializer : AbstractFunctionalDataSerializer<Int>(
-    CompoundTag::getInt,
-    CompoundTag::putInt
+    NbtCompound::getInt,
+    NbtCompound::putInt
 )
 
 class FloatSerializer : AbstractFunctionalDataSerializer<Float>(
-    CompoundTag::getFloat,
-    CompoundTag::putFloat
+    NbtCompound::getFloat,
+    NbtCompound::putFloat
 )
 
 class DoubleSerializer : AbstractFunctionalDataSerializer<Double>(
-    CompoundTag::getDouble,
-    CompoundTag::putDouble
+    NbtCompound::getDouble,
+    NbtCompound::putDouble
 )
 
 class StringSerializer : AbstractFunctionalDataSerializer<String>(
-    CompoundTag::getString,
-    CompoundTag::putString
+    NbtCompound::getString,
+    NbtCompound::putString
 )
 
 class ByteSerializer : AbstractFunctionalDataSerializer<Byte>(
-    CompoundTag::getByte,
-    CompoundTag::putByte
+    NbtCompound::getByte,
+    NbtCompound::putByte
 )
 
 class BooleanSerializer : AbstractFunctionalDataSerializer<Boolean>(
-    CompoundTag::getBoolean,
-    CompoundTag::putBoolean
+    NbtCompound::getBoolean,
+    NbtCompound::putBoolean
 )
 
 class ShortSerializer : AbstractFunctionalDataSerializer<Short>(
-    CompoundTag::getShort,
-    CompoundTag::putShort
+    NbtCompound::getShort,
+    NbtCompound::putShort
 )
 
 class LongSerializer : AbstractFunctionalDataSerializer<Long>(
-    CompoundTag::getLong,
-    CompoundTag::putLong
+    NbtCompound::getLong,
+    NbtCompound::putLong
 )
 
 class CharSerializer : AbstractFunctionalDataSerializer<Char>(

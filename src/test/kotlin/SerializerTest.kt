@@ -4,7 +4,7 @@ import dev.nathanpb.ktdatatag.serializer.DataSerializer
 import dev.nathanpb.ktdatatag.serializer.Serializers
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
@@ -14,7 +14,7 @@ import java.util.*
 
 class SerializerTest {
     private fun <T> testSerializer(serializer: DataSerializer<T>, sampleData: T, areEquals: (Any?, Any?)->Unit = ::assertEquals) {
-        val tag = CompoundTag()
+        val tag = NbtCompound()
         val key = "foo"
 
         assertFalse(serializer.has(tag, key))
@@ -79,8 +79,8 @@ class SerializerTest {
     }
 
     @Test
-    fun compoundTag() {
-        val tag = CompoundTag().apply {
+    fun NbtCompound() {
+        val tag = NbtCompound().apply {
             putBoolean("boolean", true)
             putInt("int", Int.MAX_VALUE)
             putByte("byte", 0b1)

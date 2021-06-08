@@ -10,14 +10,14 @@
 
 package dev.nathanpb.ktdatatag.serializer
 
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 
-class CompoundTagSerializer : DataSerializer<CompoundTag> {
-    override fun write(tag: CompoundTag, key: String, data: CompoundTag) {
+class NbtCompoundSerializer : DataSerializer<NbtCompound> {
+    override fun write(tag: NbtCompound, key: String, data: NbtCompound) {
         tag.put(key, data)
     }
 
-    override fun read(tag: CompoundTag, key: String): CompoundTag {
+    override fun read(tag: NbtCompound, key: String): NbtCompound {
         return tag.getCompound(key)
     }
 }

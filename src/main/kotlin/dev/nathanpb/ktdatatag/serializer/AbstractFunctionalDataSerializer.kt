@@ -10,17 +10,17 @@
 
 package dev.nathanpb.ktdatatag.serializer
 
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 
 abstract class AbstractFunctionalDataSerializer<T>(
-    private val reader: (CompoundTag, String) -> T,
-    private val writer: (CompoundTag, String, T) -> Unit
+    private val reader: (NbtCompound, String) -> T,
+    private val writer: (NbtCompound, String, T) -> Unit
 ) : DataSerializer<T> {
-    override fun read(tag: CompoundTag, key: String): T {
+    override fun read(tag: NbtCompound, key: String): T {
         return reader(tag, key)
     }
 
-    override fun write(tag: CompoundTag, key: String, data: T) {
+    override fun write(tag: NbtCompound, key: String, data: T) {
         return writer(tag, key, data)
     }
 }

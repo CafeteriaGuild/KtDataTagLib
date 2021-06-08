@@ -11,12 +11,12 @@
 package dev.nathanpb.ktdatatag.data
 
 import dev.nathanpb.ktdatatag.serializer.DataSerializer
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import java.util.logging.Logger
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-open class MutableCompoundData(val tag: CompoundTag) {
+open class MutableCompoundData(val tag: NbtCompound) {
     val LOGGER = Logger.getLogger("KtDataTagLib")
 
     protected fun <T>persistentDefaulted(defaultValue: T, serializer: DataSerializer<T>, key: String? = null) : ReadWriteProperty<MutableCompoundData, T> {

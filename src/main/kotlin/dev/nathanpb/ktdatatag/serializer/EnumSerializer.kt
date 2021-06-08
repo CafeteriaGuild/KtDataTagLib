@@ -10,15 +10,15 @@
 
 package dev.nathanpb.ktdatatag.serializer
 
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 
 class EnumSerializer<T: Enum<T>>(private val clasz: Class<T>) : DataSerializer<T>{
 
-    override fun write(tag: CompoundTag, key: String, data: T) {
+    override fun write(tag: NbtCompound, key: String, data: T) {
         tag.putString(key, data.name)
     }
 
-    override fun read(tag: CompoundTag, key: String): T {
+    override fun read(tag: NbtCompound, key: String): T {
         return java.lang.Enum.valueOf(clasz, tag.getString(key)) as T
     }
 }

@@ -17,32 +17,32 @@ import java.util.*
 
 abstract class AbstractListSerializer<T>(private val type: Byte) : DataSerializer<List<T>> {
 
-    abstract fun readList(tag: ListTag): List<T>
-    abstract fun writeList(list: List<T>): ListTag
+    abstract fun readList(tag: NbtList): List<T>
+    abstract fun writeList(list: List<T>): NbtList
 
-    override fun read(tag: CompoundTag, key: String): List<T> {
+    override fun read(tag: NbtCompound, key: String): List<T> {
         return readList(tag.getList(key, type.toInt()))
     }
 
-    override fun write(tag: CompoundTag, key: String, data: List<T>) {
+    override fun write(tag: NbtCompound, key: String, data: List<T>) {
         tag.put(key, writeList(data))
     }
 }
 
-abstract class AbstractListTagSerializer<T, A: Tag> (
+abstract class AbstractNbtListSerializer<T, A: NbtElement> (
     type: Byte,
     private val clasz: Class<A>,
     private val unwrap: (A)->T,
     private val wrap: (T)->A
 ): AbstractListSerializer<T>(type) {
 
-    override fun readList(tag: ListTag): List<T> {
+    override fun readList(tag: NbtList): List<T> {
         return tag.filterIsInstance(clasz).map(unwrap)
     }
 
 
-    override fun writeList(list: List<T>): ListTag {
-        return ListTag().apply {
+    override fun writeList(list: List<T>): NbtList {
+        return NbtList().apply {
             list.map(wrap).forEach {
                 add(it)
             }
@@ -50,101 +50,101 @@ abstract class AbstractListTagSerializer<T, A: Tag> (
     }
 }
 
-class IntListSerializer : AbstractListTagSerializer<Int, IntTag>(
-    IntTag.of(0).type,
-    IntTag::class.java,
-    IntTag::getInt,
-    IntTag::of
+class IntListSerializer : AbstractNbtListSerializer<Int, NbtInt>(
+    NbtInt.of(0).type,
+    NbtInt::class.java,
+    NbtInt::intValue,
+    NbtInt::of
 )
 
-class FloatListSerializer : AbstractListTagSerializer<Float, FloatTag>(
-    FloatTag.of(0F).type,
-    FloatTag::class.java,
-    FloatTag::getFloat,
-    FloatTag::of
+class FloatListSerializer : AbstractNbtListSerializer<Float, NbtFloat>(
+    NbtFloat.of(0F).type,
+    NbtFloat::class.java,
+    NbtFloat::floatValue,
+    NbtFloat::of
 )
 
-class DoubleListSerializer : AbstractListTagSerializer<Double, DoubleTag>(
-    DoubleTag.of(0.0).type,
-    DoubleTag::class.java,
-    DoubleTag::getDouble,
-    DoubleTag::of
+class DoubleListSerializer : AbstractNbtListSerializer<Double, NbtDouble>(
+    NbtDouble.of(0.0).type,
+    NbtDouble::class.java,
+    NbtDouble::doubleValue,
+    NbtDouble::of
 )
 
-class StringListSerializer : AbstractListTagSerializer<String, StringTag>(
-    StringTag.of("").type,
-    StringTag::class.java,
-    StringTag::asString,
-    StringTag::of
+class StringListSerializer : AbstractNbtListSerializer<String, NbtString>(
+    NbtString.of("").type,
+    NbtString::class.java,
+    NbtString::asString,
+    NbtString::of
 )
 
-class ByteListSerializer : AbstractListTagSerializer<Byte, ByteTag>(
-    ByteTag.of(0x0).type,
-    ByteTag::class.java,
-    ByteTag::getByte,
-    ByteTag::of
+class ByteListSerializer : AbstractNbtListSerializer<Byte, NbtByte>(
+    NbtByte.of(0x0).type,
+    NbtByte::class.java,
+    NbtByte::byteValue,
+    NbtByte::of
 )
 
-class BooleanListSerializer : AbstractListTagSerializer<Boolean, ByteTag>(
-    ByteTag.of(0x0).type,
-    ByteTag::class.java,
-    { it.byte.toInt() != 0 },
-    ByteTag::of
+class BooleanListSerializer : AbstractNbtListSerializer<Boolean, NbtByte>(
+    NbtByte.of(0x0).type,
+    NbtByte::class.java,
+    { it.byteValue().toInt() != 0 },
+    NbtByte::of
 )
 
-class ShortListSerializer : AbstractListTagSerializer<Short, ShortTag>(
-    ShortTag.of(0).type,
-    ShortTag::class.java,
-    ShortTag::getShort,
-    ShortTag::of
+class ShortListSerializer : AbstractNbtListSerializer<Short, NbtShort>(
+    NbtShort.of(0).type,
+    NbtShort::class.java,
+    NbtShort::shortValue,
+    NbtShort::of
 )
 
-class LongListSerializer : AbstractListTagSerializer<Long, LongTag>(
-    LongTag.of(0).type,
-    LongTag::class.java,
-    LongTag::getLong,
-    LongTag::of
+class LongListSerializer : AbstractNbtListSerializer<Long, NbtLong>(
+    NbtLong.of(0).type,
+    NbtLong::class.java,
+    NbtLong::longValue,
+    NbtLong::of
 )
 
-class CharListSerializer : AbstractListTagSerializer<Char, ShortTag>(
-    ShortTag.of(0).type,
-    ShortTag::class.java,
-    { tag -> tag.short.toChar() },
-    { char -> ShortTag.of(char.toShort()) }
+class CharListSerializer : AbstractNbtListSerializer<Char, NbtShort>(
+    NbtShort.of(0).type,
+    NbtShort::class.java,
+    { tag -> tag.shortValue().toChar() },
+    { char -> NbtShort.of(char.toShort()) }
 )
 
 // what a (almost) useless thing
-class CompoundTagListSerializer : AbstractListTagSerializer<CompoundTag, CompoundTag>(
-    CompoundTag().type,
-    CompoundTag::class.java,
+class NbtCompoundListSerializer : AbstractNbtListSerializer<NbtCompound, NbtCompound>(
+    NbtCompound().type,
+    NbtCompound::class.java,
     { it },
     { it }
 )
 
-class UUIDListSerializer : AbstractListTagSerializer<UUID, StringTag>(
-    StringTag.of("").type,
-    StringTag::class.java,
+class UUIDListSerializer : AbstractNbtListSerializer<UUID, NbtString>(
+    NbtString.of("").type,
+    NbtString::class.java,
     { UUID.fromString(it.asString()) },
-    { StringTag.of(it.toString()) }
+    { NbtString.of(it.toString()) }
 )
 
-class EnumListSerializer<T: Enum<T>>(clasz: Class<T>) : AbstractListTagSerializer<T, StringTag>(
-    StringTag.of("").type,
-    StringTag::class.java,
+class EnumListSerializer<T: Enum<T>>(clasz: Class<T>) : AbstractNbtListSerializer<T, NbtString>(
+    NbtString.of("").type,
+    NbtString::class.java,
     { java.lang.Enum.valueOf(clasz, it.asString()) },
-    { StringTag.of(it.name) }
+    { NbtString.of(it.name) }
 )
 
-class IdentifierListSerializer : AbstractListTagSerializer<Identifier, StringTag>(
-    StringTag.of("").type,
-    StringTag::class.java,
+class IdentifierListSerializer : AbstractNbtListSerializer<Identifier, NbtString>(
+    NbtString.of("").type,
+    NbtString::class.java,
     { Identifier(it.asString()) },
-    { StringTag.of(it.toString()) }
+    { NbtString.of(it.toString()) }
 )
 
-class ItemStackListSerializer : AbstractListTagSerializer<ItemStack, CompoundTag>(
-    CompoundTag().type,
-    CompoundTag::class.java,
-    { ItemStack.fromTag(it) },
-    { it.toTag(CompoundTag()) }
+class ItemStackListSerializer : AbstractNbtListSerializer<ItemStack, NbtCompound>(
+    NbtCompound().type,
+    NbtCompound::class.java,
+    { ItemStack.fromNbt(it) },
+    { it.writeNbt(NbtCompound()) }
 )
