@@ -53,6 +53,6 @@ class LongSerializer : AbstractFunctionalDataSerializer<Long>(
 )
 
 class CharSerializer : AbstractFunctionalDataSerializer<Char>(
-    { tag, key -> tag.getShort(key).toChar() },
-    { tag, key, value -> tag.putShort(key, value.toShort()) }
+    { tag, key -> tag.getShort(key).toInt().toChar() },
+    { tag, key, value -> tag.putShort(key, value.code.toShort()) }
 )

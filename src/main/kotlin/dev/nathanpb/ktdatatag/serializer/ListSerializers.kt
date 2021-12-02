@@ -109,8 +109,8 @@ class LongListSerializer : AbstractNbtListSerializer<Long, NbtLong>(
 class CharListSerializer : AbstractNbtListSerializer<Char, NbtShort>(
     NbtShort.of(0).type,
     NbtShort::class.java,
-    { tag -> tag.shortValue().toChar() },
-    { char -> NbtShort.of(char.toShort()) }
+    { tag -> tag.shortValue().toInt().toChar() },
+    { char -> NbtShort.of(char.code.toShort()) }
 )
 
 // what a (almost) useless thing
