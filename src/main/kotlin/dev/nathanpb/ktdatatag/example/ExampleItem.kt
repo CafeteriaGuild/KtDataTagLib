@@ -27,7 +27,7 @@ class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
     override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
         if (!world.isClient) {
             val stack = user.getStackInHand(hand)
-            val data = ExampleItemData(stack.orCreateTag)
+            val data = ExampleItemData(stack.orCreateNbt)
 
             user.sendMessage(LiteralText("Before change: $data"), false)
 
