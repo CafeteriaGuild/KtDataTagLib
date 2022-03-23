@@ -8,9 +8,9 @@
     "NathanPB"
   ],
   "contact": {
-    "homepage": "https://github.com/NathanPB/KtDataTagLib",
-    "issues": "https://github.com/NathanPB/KtDataTagLib/issues",
-    "sources": "https://github.com/NathanPB/KtDataTagLib.git"
+    "homepage": "https://github.com/CafeteriaGuild/KtDataTagLib",
+    "issues": "https://github.com/CafeteriaGuild/KtDataTagLib/issues",
+    "sources": "https://github.com/CafeteriaGuild/KtDataTagLib.git"
   },
   "license": "MIT",
   "environment": "*",
@@ -24,7 +24,7 @@
   },
   "mixins": [],
   "depends": {
-    "minecraft": "1.18.x",
+    "minecraft": ">=1.18.2",
     "fabric-language-kotlin": "*"
   },
   "custom": {

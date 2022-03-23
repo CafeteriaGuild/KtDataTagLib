@@ -10,11 +10,15 @@
 
 package dev.nathanpb.ktdatatag.example
 
+import com.mojang.logging.LogUtils
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
 @Suppress("unused")
 fun init() {
-    Registry.register(Registry.ITEM, Identifier("ktdatataglib", "example_item"), ExampleItem())
-    println("KtDataTagLib Example Mod is running")
+    if(FabricLoader.getInstance().isDevelopmentEnvironment) {
+        Registry.register(Registry.ITEM, Identifier("ktdatataglib", "example_item"), ExampleItem())
+        LogUtils.getLogger().info("Fabric development environment detected, registering KtDataTagLib's Example Item!")
+    }
 }
