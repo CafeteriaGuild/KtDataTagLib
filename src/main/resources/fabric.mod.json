@@ -13,6 +13,7 @@
     "sources": "https://github.com/CafeteriaGuild/KtDataTagLib.git"
   },
   "license": "MIT",
+  "icon": "assets/ktdatataglib/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
