@@ -15,7 +15,7 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
-import net.minecraft.text.LiteralText
+import net.minecraft.text.Text
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
 import net.minecraft.util.registry.Registry
@@ -29,7 +29,7 @@ class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
             val stack = user.getStackInHand(hand)
             val data = ExampleItemData(stack.orCreateNbt)
 
-            user.sendMessage(LiteralText("Before change: $data"), false)
+            user.sendMessage(Text.of("Before change: $data"), false)
 
             data.counterInt++
             data.counterDouble += 0.00000000002
@@ -42,7 +42,7 @@ class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
             data.id = Registry.ITEM.ids.random()
             // data.nullable = 1
 
-            user.sendMessage(LiteralText("After change: $data ${data.nullable}"), false)
+            user.sendMessage(Text.of("After change: $data ${data.nullable}"), false)
         }
         return super.use(world, user, hand)
     }
