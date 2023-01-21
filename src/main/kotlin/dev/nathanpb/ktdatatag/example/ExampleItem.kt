@@ -13,17 +13,16 @@ package dev.nathanpb.ktdatatag.example
 import dev.nathanpb.ktdatatag.example.data.ExampleItemData
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
-import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
+import net.minecraft.registry.Registries
 import net.minecraft.text.Text
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
-import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
 import java.util.*
 import kotlin.random.Random
 
-class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
+class ExampleItem : Item(Settings()){
     override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
         if (!world.isClient) {
             val stack = user.getStackInHand(hand)
@@ -39,7 +38,7 @@ class ExampleItem : Item(Settings().group(ItemGroup.MISC)){
             data.nestedTag.putInt("randomInt", Random.nextInt())
             data.enum = TestEnum.values().random()
             data.list = data.list + data.list.size
-            data.id = Registry.ITEM.ids.random()
+            data.id = Registries.ITEM.ids.random()
             // data.nullable = 1
 
             user.sendMessage(Text.of("After change: $data ${data.nullable}"), false)

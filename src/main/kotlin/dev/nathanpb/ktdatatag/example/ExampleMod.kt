@@ -11,14 +11,16 @@
 package dev.nathanpb.ktdatatag.example
 
 import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.registry.Registries
+import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
 import org.slf4j.LoggerFactory
+
 
 @Suppress("unused")
 fun init() {
     if(FabricLoader.getInstance().isDevelopmentEnvironment) {
-        Registry.register(Registry.ITEM, Identifier("ktdatataglib", "example_item"), ExampleItem())
+        Registry.register(Registries.ITEM, Identifier("ktdatataglib", "example_item"), ExampleItem())
         LoggerFactory.getLogger("KtDataTagLib").info("Fabric development environment detected, registering KtDataTagLib's Example Item!")
     }
 }
